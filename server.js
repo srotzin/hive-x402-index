@@ -162,6 +162,36 @@ function getMerchantCard(did) {
   };
 }
 
+// ─── BOGO redemption middleware (X-Hive-BOGO-Token) ─────────────────────────
+// Phase 1: calls hive-gamification /v1/bogo/redeem; bypasses 402 on consumed:true.
+// Phase 2 (planned): zero-trust redemption with token-bound HMAC.
+
+function bogoRedeemMiddleware(mechanicId) {
+  return async function _bogoRedeem(req, res, next) {
+    const token = req.headers['x-hive-bogo-token'];
+    if (!token) return next();
+    try {
+      const r = await fetch('https://hive-gamification.onrender.com/v1/bogo/redeem', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token, mechanic_id: mechanicId }),
+        signal: AbortSignal.timeout(5000),
+      });
+      if (r.ok) {
+        const j = await r.json();
+        if (j.consumed === true) {
+          req._bogo_redeemed = true;
+          import('fs').then(({ appendFileSync }) => {
+            try { appendFileSync('/tmp/x402_index_bogo_redemptions.jsonl', JSON.stringify({ token: token.slice(0, 12), mechanic_id: mechanicId, ts: Date.now() }) + '\n'); } catch (_) {}
+          });
+          return next();
+        }
+      }
+    } catch (_) {}
+    return next();
+  };
+}
+
 // ─── 402 middleware factory ───────────────────────────────────────────────────
 
 function x402Gate(resourceFn) {
@@ -169,6 +199,12 @@ function x402Gate(resourceFn) {
     stats.total_requests++;
     const tier = req.query.tier === 'inst' ? 'inst' : 'basic';
     const paymentHeader = req.headers['x-payment'];
+
+    // BOGO token was consumed upstream — bypass 402 for this call
+    if (req._bogo_redeemed) {
+      res.locals.tier = tier;
+      return next();
+    }
 
     if (!paymentHeader) {
       stats.gated_requests++;
@@ -404,8 +440,8 @@ app.post('/mcp', async (req, res) => {
   return res.json({ jsonrpc: '2.0', id: id ?? null, error: { code: -32601, message: `Method not found: ${method}` } });
 });
 
-// 5. Leaderboard — 402-gated
-app.get('/v1/x402-index/:period', x402Gate(), async (req, res) => {
+// 5. Leaderboard — BOGO-aware, then 402-gated
+app.get('/v1/x402-index/:period', bogoRedeemMiddleware('x402-index-query'), x402Gate(), async (req, res) => {
   const { period } = req.params;
 
   if (!VALID_PERIODS.has(period)) {
