@@ -1,0 +1,104 @@
+startCommand:
+  type: http
+  configSchema:
+    type: object
+    properties:
+      tier:
+        type: string
+        title: Pricing Tier
+        description: "basic = $0.005/query. inst = $0.50/query (institutional). Default: basic."
+        enum:
+          - basic
+          - inst
+        default: basic
+        x-order: 0
+    required: []
+  url: https://hive-x402-index.onrender.com/mcp
+
+name: hive-x402-index
+displayName: Hive x402 Index
+version: "1.0.0"
+description: >
+  Third-party paid leaderboard of agentic x402 traffic on Base. Ranks merchants
+  and AI agents by x402 transaction count and USDC volume on Base mainnet.
+  Settlement to Monroe treasury (Base USDC). Basic tier $0.005/query.
+  Institutional tier $0.50/query. Part of the Hive Civilization agent network.
+
+author:
+  name: Steve Rotzin
+  email: steve@thehiveryiq.com
+  url: https://www.thehiveryiq.com
+
+license: MIT
+homepage: https://hive-x402-index.onrender.com
+icon: https://www.thehiveryiq.com/favicon.ico
+
+repository:
+  type: git
+  url: https://github.com/srotzin/hive-x402-index
+
+transport: streamable-http
+endpoint: https://hive-x402-index.onrender.com/mcp
+protocol: "2024-11-05"
+
+categories:
+  - finance
+  - agent-to-agent
+  - defi
+  - analytics
+  - payment-infrastructure
+
+tags:
+  - mcp
+  - x402
+  - leaderboard
+  - base-l2
+  - usdc
+  - a2a
+  - hive
+  - micropayments
+  - ai-agents
+  - defai
+
+tools:
+  - name: get_index
+    description: >
+      Retrieve the x402 merchant leaderboard for a given time period.
+      Returns ranked list of agents and merchants by transaction count
+      and USDC volume on Base mainnet. Requires x402 payment.
+    inputs:
+      - name: period
+        type: string
+        required: true
+        description: "Leaderboard window. One of: 1h, 24h, 7d, 30d."
+      - name: tier
+        type: string
+        required: false
+        description: "Pricing tier. basic=$0.005 USDC, inst=$0.50 USDC. Default: basic."
+
+  - name: get_merchant_rank
+    description: >
+      Retrieve the rank card for a specific x402 merchant by DID.
+      Returns transaction count, USDC volume, category, and verification
+      status on Base mainnet. Requires x402 payment.
+    inputs:
+      - name: did
+        type: string
+        required: true
+        description: "W3C DID of the merchant (e.g. did:web:example.com)."
+      - name: tier
+        type: string
+        required: false
+        description: "Pricing tier. basic=$0.005 USDC. Default: basic."
+
+runtime:
+  type: node
+  version: ">=18"
+  command: node server.js
+  env:
+    - name: PORT
+      default: "3000"
+      required: false
+    - name: NODE_ENV
+      default: "production"
+      required: false

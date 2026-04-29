@@ -1,0 +1,101 @@
+{
+  "merchants": [
+    {
+      "did": "did:web:hivemorph.onrender.com",
+      "name": "hivemorph",
+      "description": "Hive backend orchestration layer. x402-gated compute and trust endpoints.",
+      "domain": "hivemorph.onrender.com",
+      "category": "agent-infrastructure",
+      "seed_tx_count": 312,
+      "seed_volume_usdc": 1.56,
+      "verified": true,
+      "first_seen": "2025-10-01T00:00:00Z"
+    },
+    {
+      "did": "did:web:hive-meter.onrender.com",
+      "name": "hive-meter",
+      "description": "DID-attested trust score lookup. $0.001/query. First 10/day free.",
+      "domain": "hive-meter.onrender.com",
+      "category": "agent-infrastructure",
+      "seed_tx_count": 198,
+      "seed_volume_usdc": 0.198,
+      "verified": true,
+      "first_seen": "2025-11-15T00:00:00Z"
+    },
+    {
+      "did": "did:web:x402.coinbase.com",
+      "name": "coinbase-x402-facilitator",
+      "description": "Coinbase x402 payment facilitator. Reference implementation for EIP-3009 transferWithAuthorization on Base.",
+      "domain": "x402.coinbase.com",
+      "category": "payment-infrastructure",
+      "seed_tx_count": 8741,
+      "seed_volume_usdc": 43705.0,
+      "verified": true,
+      "first_seen": "2025-03-01T00:00:00Z"
+    },
+    {
+      "did": "did:web:brave.com",
+      "name": "brave-x402",
+      "description": "Brave browser x402 micropayment integration for publisher monetization on Base.",
+      "domain": "brave.com",
+      "category": "browser-monetization",
+      "seed_tx_count": 4203,
+      "seed_volume_usdc": 2101.5,
+      "verified": false,
+      "first_seen": "2025-06-01T00:00:00Z"
+    },
+    {
+      "did": "did:web:fewsats.com",
+      "name": "fewsats",
+      "description": "Fewsats L402/x402 gateway. Enables AI agents to pay for APIs on Base and Lightning.",
+      "domain": "fewsats.com",
+      "category": "payment-gateway",
+      "seed_tx_count": 1890,
+      "seed_volume_usdc": 945.0,
+      "verified": false,
+      "first_seen": "2025-04-15T00:00:00Z"
+    },
+    {
+      "did": "did:web:hive-escrow.onrender.com",
+      "name": "hive-escrow",
+      "description": "Hive P2P escrow for agent deliverables. 50bps take rate. USDC on Base.",
+      "domain": "hive-escrow.onrender.com",
+      "category": "agent-infrastructure",
+      "seed_tx_count": 87,
+      "seed_volume_usdc": 4350.0,
+      "verified": true,
+      "first_seen": "2025-12-01T00:00:00Z"
+    },
+    {
+      "did": "did:web:api.kagi.com",
+      "name": "kagi-x402",
+      "description": "Kagi search API with x402 micropayment support for AI agent queries.",
+      "domain": "api.kagi.com",
+      "category": "search-api",
+      "seed_tx_count": 654,
+      "seed_volume_usdc": 32.7,
+      "verified": false,
+      "first_seen": "2025-09-01T00:00:00Z"
+    },
+    {
+      "did": "did:web:comput3.ai",
+      "name": "comput3-x402",
+      "description": "Decentralized GPU compute marketplace. x402-gated inference endpoints on Base.",
+      "domain": "comput3.ai",
+      "category": "compute",
+      "seed_tx_count": 432,
+      "seed_volume_usdc": 2160.0,
+      "verified": false,
+      "first_seen": "2025-08-01T00:00:00Z"
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "last_updated": "2026-01-01T00:00:00Z",
+    "note": "Seed data. Transaction counts and volumes are estimated from public signals and first-party telemetry. Update via PATCH /v1/x402-index/admin/seed.",
+    "network": "base",
+    "chain_id": 8453,
+    "settlement_asset": "USDC",
+    "asset_contract": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+  }
+}
