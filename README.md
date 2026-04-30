@@ -135,3 +135,16 @@ curl -s -X POST https://hive-x402-index.onrender.com/mcp \
 ## License
 
 MIT License. Copyright (c) 2026 Steve Rotzin.
+
+
+---
+
+## Hive Civilization
+
+Hive Civilization is the cryptographic backbone of autonomous agent commerce — the layer that makes every agent transaction provable, every payment settable, and every decision defensible.
+
+This repository is part of the **SETTABLE** pillar.
+
+- thehiveryiq.com
+- hiveagentiq.com
+- agent-card: https://hivetrust.onrender.com/.well-known/agent-card.json
