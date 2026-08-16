@@ -95,6 +95,7 @@ Known x402 merchants are maintained in `/data/seed.json`. Current seed list:
 - `hive-escrow` — Hive P2P agent escrow
 - `kagi-x402` — Kagi search API
 - `comput3-x402` — Decentralized GPU compute
+- `colombia-trm` — Official Colombian USD/COP TRM prepaid x402
 
 Seed data is updated by the Hive operator team. Transaction counts are estimated from public signals and first-party telemetry. Live on-chain enrichment is added in future iterations.
 
